@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "jsx": "react",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "preserveConstEnums": true,
+        "rootDir": "src",
+        "outDir": "built",
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

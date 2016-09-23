@@ -1,0 +1,32 @@
+{
+  "name": "mobx-persist",
+  "version": "0.0.1",
+  "description": "create and persist mobx stores",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pinqy520/mobx-persist.git"
+  },
+  "keywords": [
+    "mobx",
+    "store",
+    "persist",
+    "mobx-persist"
+  ],
+  "author": "Huang Qi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pinqy520/mobx-persist/issues"
+  },
+  "homepage": "https://github.com/pinqy520/mobx-persist#readme",
+  "dependencies": {
+    "react-native-storage": "^0.1.4",
+    "serializr": "^1.1.7"
+  },
+  "peerDependencies": {
+    "mobx": "*"
+  }
+}
