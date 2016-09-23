@@ -1,17 +1,18 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "es5",
         "jsx": "react",
-        "module": "es2015",
+        "module": "umd",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "preserveConstEnums": true,
         "rootDir": "src",
-        "outDir": "built",
+        "outDir": "lib",
         "sourceMap": true
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "lib"
     ]
 }

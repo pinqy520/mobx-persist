@@ -9,7 +9,7 @@ import {
     serializable
 } from 'serializr'
 
-declare type Types = 'object' | 'list' | 'map'
+export declare type Types = 'object' | 'list' | 'map'
 
 const types: { [key: string]: ((s?: any) => any) } = {
     'object': (s: any) => s ? _object(s) : custom((v: any) => v, (v: any) => v),
@@ -23,7 +23,7 @@ export function persist(arg1: any, arg2: any, arg3?: any): any {
     return (arg1 in types) ? serializable(types[arg1](arg2)) : serializable.apply(null, arguments)
 }
 
-interface optionsTyoe {
+export interface optionsTyoe {
     storage: any
 }
 
