@@ -1,13 +1,20 @@
 import Storage from 'react-native-storage'
 import { reaction } from 'mobx'
-import { serialize, deserialize, update, custom, list as _list, map as _map, object as _object, serializable } from 'serializr'
+import {
+    serialize, deserialize, update, custom,
+    list as _list,
+    map as _map,
+    object as _object,
+    primitive as _primitive,
+    serializable
+} from 'serializr'
 
 declare type Types = 'object' | 'list' | 'map'
 
 const types: { [key: string]: ((s?: any) => any) } = {
     'object': (s: any) => s ? _object(s) : custom((v: any) => v, (v: any) => v),
-    'list': (s: any) => _list(_object(s)),
-    'map': (s: any) => _map(_object(s))
+    'list': (s: any) => s ? _list(_object(s)) : _list(_primitive()),
+    'map': (s: any) => s ? _map(_object(s)) : _map(_primitive())
 }
 
 export function persist(type: Types, schema?: any): (target: Object, key: string, baseDescriptor?: PropertyDescriptor) => void
