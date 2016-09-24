@@ -36,7 +36,11 @@ export function create(options: optionsTyoe) {
         const store = new storeClass
         storage.getItem(key)
             .then((d: string) => JSON.parse(d))
-            .then((persisted: any) => update(store, persisted))
+            .then((persisted: any) => {
+                if(typeof persisted === 'object') {
+                    update(store, persisted)
+                }
+            })
         reaction(
             key, () => serialize(store),
             (data: any) => storage.setItem(key, JSON.stringify(data))
