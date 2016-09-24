@@ -29,7 +29,7 @@ export interface optionsTyoe {
 
 export function create(options: optionsTyoe) {
     let storage = Storage
-    if (options.storage && options.storage !== window.localStorage) {
+    if (options.storage && options.storage !== localStorage) {
         storage = options.storage
     }
     return function createStore<T>(key: string, storeClass: any): T {
@@ -37,7 +37,7 @@ export function create(options: optionsTyoe) {
         storage.getItem(key)
             .then((d: string) => JSON.parse(d))
             .then((persisted: any) => {
-                if(typeof persisted === 'object') {
+                if(persisted && typeof persisted === 'object') {
                     update(store, persisted)
                 }
             })
