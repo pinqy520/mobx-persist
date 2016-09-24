@@ -17,6 +17,9 @@ class SomeItem {
 
 class SomeStore {
     @persist('object') @observable i = { a: 1, b: 2 }
+    @persist('map') @observable i = asMap<string>({})
+    @persist('list') @observable i = [1,2,3,4]
+    @persist('object', SomeItem) @observable s = new SomeItem
     @persist('map', SomeItem) @observable m = asMap<SomeItem>({})
     @persist('list', SomeItem) @observable l = []
 }
