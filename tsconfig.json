@@ -3,13 +3,12 @@
         "target": "es5",
         "jsx": "react",
         "module": "umd",
-        "moduleResolution": "node",
+        "moduleResolution": "classic",
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "preserveConstEnums": true,
         "rootDir": "src",
-        "outDir": "lib",
-        "sourceMap": true
+        "outDir": "lib"
     },
     "exclude": [
         "node_modules",

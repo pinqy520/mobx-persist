@@ -1,4 +1,3 @@
-import Storage from 'react-native-storage'
 import { reaction } from 'mobx'
 import {
     serialize, deserialize, update, custom,
@@ -8,6 +7,7 @@ import {
     primitive as _primitive,
     serializable
 } from 'serializr'
+import * as Storage from './storage'
 
 export declare type Types = 'object' | 'list' | 'map'
 
@@ -28,16 +28,18 @@ export interface optionsTyoe {
 }
 
 export function create(options: optionsTyoe) {
-    const storage = new Storage({
-        storageBackend: options.storage
-    })
+    let storage = Storage
+    if (options.storage && options.storage !== window.localStorage) {
+        storage = options.storage
+    }
     return function createStore<T>(key: string, storeClass: any): T {
         const store = new storeClass
-        storage.load({ key })
+        storage.getItem(key)
+            .then((d: string) => JSON.parse(d))
             .then((persisted: any) => update(store, persisted))
         reaction(
             key, () => serialize(store),
-            (data: any) => storage.save({ key, rawData: data })
+            (data: any) => storage.setItem(key, JSON.stringify(data))
         )
         return store
     }

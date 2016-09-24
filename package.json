@@ -2,8 +2,8 @@
   "name": "mobx-persist",
   "version": "0.0.1",
   "description": "create and persist mobx stores",
-  "main": "./lib/index.js",
-  "typings:": "./lib/index.d.ts",
+  "main": "lib/index.js",
+  "typings:": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
