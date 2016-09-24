@@ -31,3 +31,7 @@ const createStore = create({
 export const someStore = createStore('some', SomeStore)
 
 ```
+
+## Dependency
+
+- [Serializr](https://github.com/mobxjs/serializr)
