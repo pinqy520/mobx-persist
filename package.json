@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/pinqy520/mobx-persist#readme",
   "dependencies": {
-    "react-native-storage": "^0.1.4",
     "serializr": "^1.1.7"
   },
   "peerDependencies": {
