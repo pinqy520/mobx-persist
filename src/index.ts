@@ -29,7 +29,7 @@ export interface optionsTyoe {
 
 export function create(options: optionsTyoe) {
     let storage = Storage
-    if (options.storage && options.storage !== localStorage) {
+    if (options.storage && options.storage !== window.localStorage) {
         storage = options.storage
     }
     return function createStore<T>(key: string, storeClass: any): T {
