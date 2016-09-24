@@ -1,7 +1,7 @@
 # Mobx Persist
 
 ```
-$ npm install github:pinqy520/mobx-persist --save
+$ npm install mobx-persist --save
 ```
 
 ## Usage
