@@ -5,6 +5,7 @@
   "main": "index.js",
   "typings:": "index.d.ts",
   "scripts": {
+    "build": "tsc && shx cp package.json .build/ && shx cp LICENSE.md .build/ && shx cp README.md .build/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,6 +28,7 @@
     "serializr": "^1.1.7"
   },
   "devDependencies": {
-    "mobx": "^2.5.1"
+    "mobx": "^2.5.1",
+    "shx": "^0.1.4"
   }
 }

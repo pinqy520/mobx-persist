@@ -11,7 +11,7 @@
     "react": "15.3.2",
     "react-native": "0.34.0",
     "serializr": "^1.1.7",
-    "mobx-persist": "../../"
+    "mobx-persist": "../../.build/"
   },
   "devDependencies": {
     "babel-plugin-transform-decorators-legacy": "^1.3.4"
