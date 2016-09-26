@@ -6,11 +6,12 @@
         "experimentalDecorators": true,
         "preserveConstEnums": true,
         "rootDir": "src",
-        "outDir": "lib"
+        "outDir": ".build",
+        "declaration": true
     },
     "exclude": [
         "node_modules",
-        "lib",
+        ".build",
         "examples"
     ]
 }
