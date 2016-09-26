@@ -24,11 +24,11 @@ class SomeStore {
     @persist('list', SomeItem) @observable l = []
 }
 
-const createStore = create({
+const persistStore = create({
     storage: AsyncStorage // default localStorage
 })
 
-export const someStore = createStore('some', SomeStore)
+export const someStore = persistStore('some', new SomeStore)
 
 ```
 

@@ -1,9 +1,7 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "jsx": "react",
         "module": "commonjs",
-        "moduleResolution": "classic",
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "preserveConstEnums": true,
@@ -12,6 +10,7 @@
     },
     "exclude": [
         "node_modules",
-        "lib"
+        "lib",
+        "examples"
     ]
 }

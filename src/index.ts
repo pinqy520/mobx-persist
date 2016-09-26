@@ -23,17 +23,16 @@ export function persist(arg1: any, arg2: any, arg3?: any): any {
     return (arg1 in types) ? serializable(types[arg1](arg2)) : serializable.apply(null, arguments)
 }
 
-export interface optionsTyoe {
-    storage: any
+export interface optionsType {
+    storage?: any
 }
 
-export function create(options: optionsTyoe) {
+export function create(options: optionsType = {}) {
     let storage = Storage
     if (options.storage && options.storage !== window.localStorage) {
         storage = options.storage
     }
-    return function createStore<T>(key: string, storeClass: any): T {
-        const store = new storeClass
+    return function persistStore<T>(key: string, store: T): T {
         storage.getItem(key)
             .then((d: string) => JSON.parse(d))
             .then((persisted: any) => {
