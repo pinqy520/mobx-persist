@@ -1,5 +1,7 @@
 # Mobx Persist
 
+[![npm version](https://badge.fury.io/js/mobx-persist.svg)](https://badge.fury.io/js/mobx-persist)
+
 ```
 $ npm install mobx-persist --save
 ```
