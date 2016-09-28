@@ -32,6 +32,14 @@ const persistStore = create({
 
 export const someStore = persistStore('some', new SomeStore)
 
+/*
+// or you need a initial state for ssr
+const initialState = window.__STATE__.some || {
+    obj: { a: 2, b: 1 }
+}
+export const someStore = persistStore('some', new SomeStore, initialState)
+*/
+
 ```
 
 ## Dependency

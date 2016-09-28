@@ -8,7 +8,7 @@ import { create } from 'mobx-persist'
 const persistStore = create({})
 
 const appState = new AppState();
-persistStore('appState', appState)
+persistStore('appState', appState, window.__INITIAL_STATE__.app)
 
 render(
   <AppContainer>

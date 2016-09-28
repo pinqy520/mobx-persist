@@ -1,4 +1,4 @@
-import { reaction } from 'mobx'
+import { reaction, transaction } from 'mobx'
 import {
     serialize, deserialize, update, custom,
     list as _list,
@@ -19,6 +19,7 @@ const types: { [key: string]: ((s?: any) => any) } = {
 
 export function persist(type: Types, schema?: any): (target: Object, key: string, baseDescriptor?: PropertyDescriptor) => void
 export function persist(target: Object, key: string, baseDescriptor?: PropertyDescriptor): void
+
 export function persist(arg1: any, arg2: any, arg3?: any): any {
     return (arg1 in types) ? serializable(types[arg1](arg2)) : serializable.apply(null, arguments)
 }
@@ -32,14 +33,15 @@ export function create(options: optionsType = {}) {
     if (options.storage && options.storage !== window.localStorage) {
         storage = options.storage
     }
-    return function persistStore<T>(key: string, store: T): T {
+    return function persistStore<T>(key: string, store: T, initialState: any = {}): T {
         storage.getItem(key)
             .then((d: string) => JSON.parse(d))
-            .then((persisted: any) => {
-                if(persisted && typeof persisted === 'object') {
+            .then((persisted: any) => transaction(() => {
+                if (persisted && typeof persisted === 'object') {
                     update(store, persisted)
                 }
-            })
+                update(store, initialState)
+            }))
         reaction(
             key, () => serialize(store),
             (data: any) => storage.setItem(key, JSON.stringify(data))
