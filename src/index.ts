@@ -1,4 +1,4 @@
-import { reaction, transaction } from 'mobx'
+import { reaction, transaction, isObservableMap, isObservableArray } from 'mobx'
 import {
     serialize, deserialize, update, custom,
     list as _list,
@@ -40,7 +40,7 @@ export function create(options: optionsType = {}) {
                 if (persisted && typeof persisted === 'object') {
                     update(store, persisted)
                 }
-                update(store, initialState)
+                mergeObservables(store, initialState)
             }))
         reaction(
             key, () => serialize(store),
@@ -48,5 +48,21 @@ export function create(options: optionsType = {}) {
         )
         return store
     }
+}
+
+export function mergeObservables<T>(t: T, source: any): T {
+    let target: any = t
+    if (typeof source === 'object') {
+        Object.keys(source).forEach(key => {
+            if (typeof target[key] === 'object') {
+                if (isObservableMap(target[key])) return target[key].merge(source[key])
+                if (isObservableArray(target[key])) return target[key].replace(source[key])
+                target[key] = source[key]
+            } else {
+                target[key] = source[key]
+            }
+        })
+    }
+    return target
 }
 
