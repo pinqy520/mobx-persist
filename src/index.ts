@@ -1,4 +1,4 @@
-import { reaction, transaction, isObservableMap, isObservableArray } from 'mobx'
+import { reaction, transaction, isObservableMap, isObservableArray, isObservableObject } from 'mobx'
 import {
     serialize, deserialize, update, custom,
     list as _list,
@@ -33,7 +33,7 @@ export function create(options: optionsType = {}) {
     if (options.storage && options.storage !== window.localStorage) {
         storage = options.storage
     }
-    return function persistStore<T>(key: string, store: T, initialState: any = {}): T {
+    return function persistStore<T extends Object>(key: string, store: T, initialState: any = {}): T {
         storage.getItem(key)
             .then((d: string) => JSON.parse(d))
             .then((persisted: any) => transaction(() => {
@@ -50,18 +50,19 @@ export function create(options: optionsType = {}) {
     }
 }
 
-export function mergeObservables<T>(t: T, source: any): T {
-    let target: any = t
-    if (typeof source === 'object') {
-        Object.keys(source).forEach(key => {
-            if (typeof target[key] === 'object') {
-                if (isObservableMap(target[key])) return target[key].merge(source[key])
-                if (isObservableArray(target[key])) return target[key].replace(source[key])
-                target[key] = source[key]
+export function mergeObservables<A extends Object, B extends Object>(target: A, source: B): A {
+    let t: any = target
+    let s: any = source
+    if (typeof t === 'object') {
+        for (let key in t) {
+            if (typeof t[key] === 'object' && typeof s[key] === 'object') {
+                if (isObservableMap(t[key])) return t[key].merge(s[key])
+                if (isObservableArray(t[key])) return t[key].replace(s[key])
+                if (isObservableObject(t[key])) return t[key] = mergeObservables(t[key], s[key])
             } else {
-                target[key] = source[key]
+                t[key] = s[key]
             }
-        })
+        }
     }
     return target
 }
