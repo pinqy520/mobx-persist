@@ -32,15 +32,20 @@ const persistStore = create({
 
 export const someStore = persistStore('some', new SomeStore)
 
-/*
-// or you need a initial state for ssr
+```
+
+``` typescript
 const initialState = window.__STATE__.some || {
     obj: { a: 2, b: 1 }
 }
 export const someStore = persistStore('some', new SomeStore, initialState)
-*/
-
 ```
+
+## Examples
+
+- [Web](https://github.com/pinqy520/mobx-persist/tree/master/examples/web)
+- [React Native](https://github.com/pinqy520/mobx-persist/tree/master/examples/rn)
+
 
 ## Dependency
 
