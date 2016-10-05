@@ -58,12 +58,13 @@ export function mergeObservables<A extends Object, B extends Object>(target: A, 
             if (typeof t[key] === 'object' && typeof s[key] === 'object') {
                 if (isObservableMap(t[key])) return t[key].merge(s[key])
                 if (isObservableArray(t[key])) return t[key].replace(s[key])
-                if (isObservableObject(t[key])) return t[key] = mergeObservables(t[key], s[key])
+                if (isObservableObject(t[key])) t[key] = mergeObservables(t[key], s[key])
+                else t[key] = s[key]
             } else {
                 t[key] = s[key]
             }
         }
     }
-    return target
+    return t
 }
 
