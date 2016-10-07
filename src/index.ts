@@ -60,7 +60,7 @@ export function mergeObservables<A extends Object, B extends Object>(target: A, 
                 if (isObservableArray(t[key])) return t[key].replace(s[key])
                 if (isObservableObject(t[key])) t[key] = mergeObservables(t[key], s[key])
                 else t[key] = s[key]
-            } else {
+            } else if (s[key] !== undefined) {
                 t[key] = s[key]
             }
         }
