@@ -25,10 +25,10 @@
   },
   "homepage": "https://github.com/pinqy520/mobx-persist#readme",
   "dependencies": {
-    "serializr": "^1.1.7"
+    "serializr": "^1.1.8"
   },
   "devDependencies": {
-    "mobx": "^2.5.1",
+    "mobx": "^2.6.1",
     "shx": "^0.1.4"
   }
 }

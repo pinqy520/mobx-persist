@@ -35,14 +35,14 @@
     "eslint": "^2.13.1",
     "react-hot-loader": "^3.0.0-beta.2",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
-    "mobx-persist": "../../.build/"
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "mobx": "^2.2.2",
-    "mobx-react": "^3.3.1",
-    "mobx-react-devtools": "^4.2.0",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "mobx": "^2.6.1",
+    "mobx-react": "^3.5.8",
+    "mobx-react-devtools": "^4.2.9",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "mobx-persist": "../../.build/"
   }
 }
