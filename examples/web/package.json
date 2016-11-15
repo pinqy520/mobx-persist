@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "mobx": "^2.6.1",
-    "mobx-persist": "file:///Volumes/workspace/Github/mobx-persist/.build",
+    "mobx-persist": "../../.build/",
     "mobx-react": "^3.5.8",
     "mobx-react-devtools": "^4.2.9",
     "react": "^15.3.2",
