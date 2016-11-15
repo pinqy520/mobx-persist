@@ -37,7 +37,6 @@ export function create(options: optionsType = {}) {
         storage.getItem(key)
             .then((d: string) => JSON.parse(d))
             .then(action('[mobx-persist] LOAD_DATA', (persisted: any) => {
-                console.log('in')
                 if (persisted && typeof persisted === 'object') {
                     update(store, persisted)
                 }
