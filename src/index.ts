@@ -1,4 +1,4 @@
-import { reaction, transaction, isObservableMap, isObservableArray, isObservableObject } from 'mobx'
+import { reaction, action, isObservableMap, isObservableArray, isObservableObject } from 'mobx'
 import {
     serialize, deserialize, update, custom,
     list as _list,
@@ -36,7 +36,8 @@ export function create(options: optionsType = {}) {
     return function persistStore<T extends Object>(key: string, store: T, initialState: any = {}): T {
         storage.getItem(key)
             .then((d: string) => JSON.parse(d))
-            .then((persisted: any) => transaction(() => {
+            .then(action('[mobx-persist] LOAD_DATA', (persisted: any) => {
+                console.log('in')
                 if (persisted && typeof persisted === 'object') {
                     update(store, persisted)
                 }

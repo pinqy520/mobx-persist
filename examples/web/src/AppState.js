@@ -1,15 +1,19 @@
-import { observable } from 'mobx';
+import { observable, useStrict, action, runInAction } from 'mobx';
 import { persist } from 'mobx-persist'
+
+// useStrict(true)
 
 class AppState {
   @persist @observable timer = 0;
 
   constructor() {
-    setInterval(() => {
-      this.timer += 1;
-    }, 1000);
+    setInterval(this.inc.bind(this), 1000);
   }
-
+  @action('INC')
+  inc() {
+    this.timer += 1;
+  }
+  @action('RESET')
   resetTimer() {
     this.timer = 0;
   }

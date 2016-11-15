@@ -6,6 +6,7 @@
   "typings:": "index.d.ts",
   "scripts": {
     "build": "tsc && shx cp package.json .build/ && shx cp LICENSE.md .build/ && shx cp README.md .build/",
+    "dev:web": "npm run build && (cd examples/web && npm install mobx-persist --save && npm start)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
