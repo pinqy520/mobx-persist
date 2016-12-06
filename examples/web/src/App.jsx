@@ -7,8 +7,9 @@ class App extends Component {
   render() {
     return (
       <div>
+        <div>{this.props.appState.count}</div>
         <button onClick={this.onReset}>
-          Seconds passed: {this.props.appState.timer}
+          Seconds passed: {this.props.appState.count}
         </button>
         <DevTools />
       </div>
