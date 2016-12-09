@@ -10,7 +10,7 @@ $ npm install mobx-persist --save
 
 ``` typescript
 import { observable, asMap } from 'mobx'
-import { create, persist   } from 'mobx-resist'
+import { create, persist   } from 'mobx-persist'
 
 class SomeItem {
     @persist @observable  name = 'some'
