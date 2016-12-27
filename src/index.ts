@@ -36,14 +36,14 @@ export function create(options: optionsType = {}) {
     return function persistStore<T extends Object>(key: string, store: T, initialState: any = {}): T {
         storage.getItem(key)
             .then((d: string) => JSON.parse(d))
-            .then(action('[mobx-persist] LOAD_DATA', (persisted: any) => {
+            .then(action(`[mobx-persist ${key}] LOAD_DATA`, (persisted: any) => {
                 if (persisted && typeof persisted === 'object') {
                     update(store, persisted)
                 }
                 mergeObservables(store, initialState)
             }))
         reaction(
-            key, () => serialize(store),
+            () => serialize(store),
             (data: any) => storage.setItem(key, JSON.stringify(data))
         )
         return store
