@@ -5,8 +5,8 @@
   "main": "index.js",
   "typings:": "index.d.ts",
   "scripts": {
+    "start": "node server.js",
     "build": "tsc && shx cp package.json .build/ && shx cp LICENSE.md .build/ && shx cp README.md .build/",
-    "dev:web": "npm run build && (cd examples/web && npm install mobx-persist && npm start)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,8 +28,24 @@
   "dependencies": {
     "serializr": "^1.1.8"
   },
+  "files": [
+    "lib"
+  ],
   "devDependencies": {
-    "mobx": "^2.6.1",
-    "shx": "^0.1.4"
+    "@types/es6-promise": "0.0.32",
+    "@types/node": "^6.0.55",
+    "@types/react": "^0.14.55",
+    "@types/react-dom": "^0.14.20",
+    "awesome-typescript-loader": "^3.0.0-beta.17",
+    "mobx": "^2.7.0",
+    "mobx-react": "^4.0.4",
+    "mobx-react-devtools": "^4.2.10",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-hot-loader": "^3.0.0-beta.2",
+    "shx": "^0.2.1",
+    "typescript": "^2.1.4",
+    "webpack": "^2.2.0-rc.3",
+    "webpack-dev-server": "^2.2.0-rc.0"
   }
 }

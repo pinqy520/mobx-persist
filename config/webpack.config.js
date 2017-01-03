@@ -7,10 +7,10 @@ module.exports = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    './src/index'
+    path.join(__dirname, '../dev/index')
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '../dist'),
     filename: 'bundle.js',
     publicPath: '/static/'
   },
@@ -18,13 +18,13 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.ts', '.tsx']
   },
   module: {
     loaders: [{
-      test: /\.jsx?$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src')
+      test: /\.tsx?$/,
+      loaders: ['awesome-typescript'],
+      // include: path.join(__dirname, 'src')
     }]
   }
 };

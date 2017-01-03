@@ -1,4 +1,4 @@
-import { reaction, action, isObservableMap, isObservableArray, isObservableObject } from 'mobx'
+import { reaction, action } from 'mobx'
 import {
     serialize, deserialize, update, custom,
     list as _list,
@@ -8,6 +8,7 @@ import {
     serializable
 } from 'serializr'
 import * as Storage from './storage'
+import { mergeObservables } from './merge-x'
 
 export declare type Types = 'object' | 'list' | 'map'
 
@@ -25,7 +26,7 @@ export function persist(arg1: any, arg2: any, arg3?: any): any {
 }
 
 export interface optionsType {
-    storage?: any
+    storage?: Storage.IStorage | any
 }
 
 export function create(options: optionsType = {}) {
@@ -50,19 +51,3 @@ export function create(options: optionsType = {}) {
     }
 }
 
-export function mergeObservables<A extends Object, B extends Object>(target: A, source: B): A {
-    let t: any = target
-    let s: any = source
-    if (typeof t === 'object' && typeof s === 'object') {
-        for (let key in t) {
-            if (t[key] && typeof t[key] === 'object' && typeof s[key] === 'object') {
-                if (isObservableMap(t[key])) t[key].merge(s[key])
-                else if (isObservableArray(t[key])) t[key].replace(s[key])
-                else if (isObservableObject(t[key])) t[key] = mergeObservables(t[key], s[key])
-            } else if (s[key] !== undefined) {
-                t[key] = s[key]
-            }
-        }
-    }
-    return t
-}

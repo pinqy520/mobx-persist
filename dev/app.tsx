@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { observer } from 'mobx-react';
-import DevTools from 'mobx-react-devtools';
+import  * as React from 'react'
+import { observer } from 'mobx-react'
+const DevTools = require('mobx-react-devtools').default
 
 @observer
-class App extends Component {
+class App extends React.Component<any, any> {
   render() {
     return (
       <div>
@@ -21,4 +21,4 @@ class App extends Component {
   }
 };
 
-export default App;
+export default App

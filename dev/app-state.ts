@@ -1,10 +1,10 @@
-import { observable, useStrict, action, runInAction, computed, extendObservable } from 'mobx';
-import { persist } from 'mobx-persist'
+import { observable, useStrict, action, runInAction, computed, extendObservable } from 'mobx'
+import { persist } from '../src'
 
 useStrict(true)
 
 class AppState {
-  @persist @observable timer
+  @persist @observable timer: any
 
   constructor() {
     setInterval(this.inc.bind(this), 2000);

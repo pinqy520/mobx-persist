@@ -42,3 +42,10 @@ export function setItem(key: string, value: string) {
         }
     })
 }
+
+export interface IStorage {
+    getItem(key: string): Promise<string>
+    removeItem(key: string): Promise<void>
+    setItem(key: string, value: string): Promise<void>
+    [key: string]: any
+}
