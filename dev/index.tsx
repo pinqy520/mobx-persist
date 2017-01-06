@@ -1,15 +1,18 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 const { AppContainer } = require('react-hot-loader')
-// import AppState from './app-state'
-import AppState from './non-decorator'
+import AppState from './app-state'
+import noDecoratorState from './non-decorator'
 import App from './app'
 import { create } from '../src'
 
 const persistStore = create({})
 
-const appState = AppState
+const appState = new AppState
 persistStore('appState', appState, (window as any).__INITIAL_STATE__.app)
+persistStore('noDecorator', noDecoratorState)
+
+// noDecoratorState.title = 'test'
 
 render(
   <AppContainer>

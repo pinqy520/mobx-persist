@@ -3,17 +3,36 @@ import { persist } from '../src'
 
 // useStrict(true)
 
-export const appState = observable({
-    timer: 1,
-    get count() {
-        return this.timer - 10
+export const appState: any = observable({
+    title: 'no decorator',
+    someObject: {
+        a: 1,
+        b: 'b',
+    },
+    someArray: [{
+        c: 1,
+        d: 'd'
+    }]
+})
+
+
+export const schema = {
+    title: true,
+    someObject: {
+        type: 'object',
+        schema: {
+            a: true,
+            b: true
+        }
+    },
+    someArray: {
+        type: 'array',
+        schema: {
+            c: true,
+            d: true
+        }
     }
-}) as any
+}
 
-setInterval(() => {
-    appState.timer += 1;
-}, 2000);
 
-export default persist({
-    timer: true
-})(appState) as any
+export default persist(schema)(appState) as any

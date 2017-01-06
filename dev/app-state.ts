@@ -1,7 +1,7 @@
 import { observable, useStrict, action, runInAction, computed, extendObservable } from 'mobx'
 import { persist } from '../src'
 
-useStrict(true)
+// useStrict(true)
 
 class AppState {
   @persist @observable timer: any
