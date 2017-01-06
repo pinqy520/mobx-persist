@@ -63,26 +63,34 @@ export function create(options: optionsType = {}) {
 //     title: true,
 //     name: {
 //         type: 'object',
-//         schema: Haha
+//         schema: {
+//             first: true,
+//             second: true,
+//             last: true
+//         }
 //     }
 // }
 
-export function persistClassOrObject(target: any, params: any) {
+export function persistClassOrObject(target: any, schema: any) {
+    const model = createModel(schema)
+    setDefaultModelSchema(target, model)
+    return target
+}
+
+function createModel(params: any) {
     const schema: { [key: string]: any } = {}
     Object.keys(params).forEach(key => {
         if (typeof params[key] === 'object') {
             if (params[key].type in types) {
-                schema[key] = types[params[key].type](params[key].schema)
-                return
+                if (typeof params[key].schema === 'object') {
+                    schema[key] = types[params[key].type](createModel(params[key].schema))
+                } else {
+                    schema[key] = types[params[key].type](params[key].schema)
+                }
             }
+        } else if (params[key] === true) {
+            schema[key] = true
         }
-        schema[key] = true
     })
-    if (typeof target === 'function') {
-        createModelSchema(target, schema)
-    } else if (typeof target === 'object') {
-        const model = createSimpleSchema(schema)
-        setDefaultModelSchema(target, model)
-    }
-    return target
+    return createSimpleSchema(schema)
 }
