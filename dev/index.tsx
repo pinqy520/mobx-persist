@@ -2,21 +2,23 @@ import * as React from 'react'
 import { render } from 'react-dom'
 const { AppContainer } = require('react-hot-loader')
 import AppState from './app-state'
-import noDecoratorState from './non-decorator'
 import App from './app'
+import { noDecoratorState, NoDecorator } from './non-decorator'
 import { create } from '../src'
 
 const persistStore = create({})
 
 const appState = new AppState
 persistStore('appState', appState, (window as any).__INITIAL_STATE__.app)
-persistStore('noDecorator', noDecoratorState)
-
-// noDecoratorState.title = 'test'
+persistStore('noDecoratorState', noDecoratorState)
 
 render(
   <AppContainer>
-    <App appState={appState} />
+    <div>
+      <App appState={appState} />
+      <hr />
+      <NoDecorator />
+    </div>
   </AppContainer>,
   document.getElementById('root')
 )
@@ -29,7 +31,11 @@ if (m.hot) {
 
     render(
       <AppContainer>
-        <NextApp appState={appState} />
+        <div>
+          <App appState={appState} />
+          <hr />
+          <NoDecorator />
+        </div>
       </AppContainer>,
       document.getElementById('root')
     );

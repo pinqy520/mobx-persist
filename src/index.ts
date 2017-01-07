@@ -1,22 +1,13 @@
 import { reaction, action } from 'mobx'
 import {
-    serialize, deserialize, update, custom, createModelSchema, createSimpleSchema, setDefaultModelSchema,
-    list as _list,
-    map as _map,
-    object as _object,
-    primitive as _primitive,
+    serialize, deserialize,
+    update,
     serializable
 } from 'serializr'
 import * as Storage from './storage'
 import { mergeObservables } from './merge-x'
-
-export declare type Types = 'object' | 'list' | 'map'
-
-const types: { [key: string]: ((s?: any) => any) } = {
-    'object': (s: any) => s ? _object(s) : custom((v: any) => v, (v: any) => v),
-    'list': (s: any) => s ? _list(_object(s)) : _list(_primitive()),
-    'map': (s: any) => s ? _map(_object(s)) : _map(_primitive())
-}
+import { types, Types } from './types'
+import { persistObject } from './persist-object'
 
 export function persist(schema: Object): <T>(target: T) => T // object
 export function persist(schema: Object): ClassDecorator // class
@@ -27,7 +18,7 @@ export function persist(...args: any[]): any {
     if (a in types) {
         return serializable(types[a](b))
     } else if (args.length === 1) {
-        return (target: any) => persistClassOrObject(target, a)
+        return (target: any) => persistObject(target, a)
     } else {
         return serializable.apply(null, args)
     }
@@ -59,38 +50,3 @@ export function create(options: optionsType = {}) {
     }
 }
 
-// const demo = {
-//     title: true,
-//     name: {
-//         type: 'object',
-//         schema: {
-//             first: true,
-//             second: true,
-//             last: true
-//         }
-//     }
-// }
-
-export function persistClassOrObject(target: any, schema: any) {
-    const model = createModel(schema)
-    setDefaultModelSchema(target, model)
-    return target
-}
-
-function createModel(params: any) {
-    const schema: { [key: string]: any } = {}
-    Object.keys(params).forEach(key => {
-        if (typeof params[key] === 'object') {
-            if (params[key].type in types) {
-                if (typeof params[key].schema === 'object') {
-                    schema[key] = types[params[key].type](createModel(params[key].schema))
-                } else {
-                    schema[key] = types[params[key].type](params[key].schema)
-                }
-            }
-        } else if (params[key] === true) {
-            schema[key] = true
-        }
-    })
-    return createSimpleSchema(schema)
-}
