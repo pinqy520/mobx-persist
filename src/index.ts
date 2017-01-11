@@ -9,10 +9,9 @@ import { mergeObservables } from './merge-x'
 import { types, Types } from './types'
 import { persistObject } from './persist-object'
 
-export function persist(schema: Object): <T>(target: T) => T // object
-export function persist(schema: Object): ClassDecorator // class
 export function persist(type: Types, schema?: any): (target: Object, key: string, baseDescriptor?: PropertyDescriptor) => void // two
 export function persist(target: Object, key: string, baseDescriptor?: PropertyDescriptor): void // method decorator
+export function persist(schema: Object): <T>(target: T) => T // object
 export function persist(...args: any[]): any {
     const [a, b, c] = args
     if (a in types) {
