@@ -66,7 +66,10 @@ const schema = {
     }
 }
 const state = persist(schema)(data)
+export const someStore = persistStore('some', state)
 ```
+
+with initial state
 
 ``` typescript
 const initialState = window.__STATE__.some || {
