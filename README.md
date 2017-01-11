@@ -34,6 +34,40 @@ export const someStore = persistStore('some', new SomeStore)
 
 ```
 
+without decorators
+
+``` typescript
+const data = observable({
+    title: 'no decorator',
+    someObject: {
+        a: 1,
+        b: 'b',
+    },
+    someArray: [{
+        c: 1,
+        d: 'd'
+    }]
+})
+const schema = {
+    title: true,
+    someObject: {
+        type: 'object',
+        schema: {
+            a: true,
+            b: true
+        }
+    },
+    someArray: {
+        type: 'list',
+        schema: {
+            c: true,
+            d: true
+        }
+    }
+}
+const state = persist(schema)(data)
+```
+
 ``` typescript
 const initialState = window.__STATE__.some || {
     obj: { a: 2, b: 1 }

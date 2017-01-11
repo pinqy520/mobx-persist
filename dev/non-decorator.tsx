@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { persist } from '../src'
 
 
-const appState = observable({
+const data = observable({
     title: 'no decorator',
     someObject: {
         a: 1,
@@ -26,7 +26,7 @@ const schema = {
         }
     },
     someArray: {
-        type: 'array',
+        type: 'list',
         schema: {
             c: true,
             d: true
@@ -35,7 +35,7 @@ const schema = {
 }
 
 
-const state = persist(schema)(appState)
+const state = persist(schema)(data)
 
 export const noDecoratorState: any = state
 
@@ -46,6 +46,13 @@ function changeObject() {
     const date = new Date
     state.someObject.a = date.getTime()
     state.someObject.b = date.toLocaleString()
+}
+function pushArray() {
+    const date = new Date
+    state.someArray.push({
+        c: date.getTime(),
+        d: date.toTimeString()
+    })
 }
 
 function NoDecoratorComponent(prop: any) {
@@ -58,6 +65,20 @@ function NoDecoratorComponent(prop: any) {
             <div>a: {state.someObject.a}</div>
             <div>b: {state.someObject.b}</div>
             <button onClick={changeObject} >Change Object</button>
+            <div>list test</div>
+            <button onClick={pushArray} >add item</button>
+            {
+                state.someArray.map((item, idx) => {
+                    return (
+                        <div key={idx}>
+                            <div>idx: {idx}</div>
+                            <div>c: {item.c}</div>
+                            <div>d: {item.d}</div>
+                            <div>---</div>
+                        </div>
+                    )
+                })
+            }
         </div>
     )
 }
