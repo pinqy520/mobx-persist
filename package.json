@@ -2,11 +2,11 @@
   "name": "mobx-persist",
   "version": "0.1.5",
   "description": "create and persist mobx stores",
-  "main": "index.js",
-  "typings:": "index.d.ts",
+  "main": "lib/index.js",
+  "typings:": "lib/index.d.ts",
   "scripts": {
     "start": "node server.js",
-    "build": "tsc && shx cp package.json .build/ && shx cp LICENSE.md .build/ && shx cp README.md .build/",
+    "tsc": "shx rm -rf lib && tsc -p config",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
