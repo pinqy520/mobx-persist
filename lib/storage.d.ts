@@ -1,4 +1,3 @@
-/// <reference types="es6-promise" />
 export declare function clear(): Promise<{}>;
 export declare function getItem(key: string): Promise<string>;
 export declare function removeItem(key: string): Promise<{}>;
