@@ -24,7 +24,8 @@ export function persist(...args: any[]): any {
 }
 
 export interface optionsType {
-    storage?: Storage.IStorage | any
+    storage?: Storage.IStorage | any,
+    stringify?: boolean
 }
 
 export function create(options: optionsType = {}) {
@@ -43,7 +44,8 @@ export function create(options: optionsType = {}) {
             }))
         reaction(
             () => serialize(store),
-            (data: any) => storage.setItem(key, JSON.stringify(data))
+            (data: any) => storage.setItem(key,
+                                           !options.stringify ? data : JSON.stringify(data))
         )
         return store
     }
