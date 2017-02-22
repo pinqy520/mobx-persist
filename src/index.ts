@@ -28,24 +28,23 @@ export interface optionsType {
     stringify?: boolean
 }
 
-export function create(options: optionsType = {}) {
-    let storage = Storage
-    if (options.storage && options.storage !== window.localStorage) {
-        storage = options.storage
-    }
+export function create({
+    storage = Storage,
+        stringify = true
+}: optionsType = {}) {
     return function persistStore<T extends Object>(key: string, store: T, initialState: any = {}): T {
         storage.getItem(key)
-            .then((d: string) => JSON.parse(d))
-            .then(action(`[mobx-persist ${key}] LOAD_DATA`, (persisted: any) => {
-                if (persisted && typeof persisted === 'object') {
-                    update(store, persisted)
-                }
-                mergeObservables(store, initialState)
-            }))
+        .then((d: string) => JSON.parse(d))
+        .then(action(`[mobx-persist ${key}] LOAD_DATA`, (persisted: any) => {
+            if (persisted && typeof persisted === 'object') {
+                update(store, persisted)
+            }
+            mergeObservables(store, initialState)
+        }))
         reaction(
             () => serialize(store),
-            (data: any) => storage.setItem(key,
-                                           !options.stringify ? data : JSON.stringify(data))
+                (data: any) => storage.setItem(key,
+                                               !stringify ? data : JSON.stringify(data))
         )
         return store
     }

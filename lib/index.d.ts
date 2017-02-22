@@ -7,4 +7,4 @@ export interface optionsType {
     storage?: Storage.IStorage | any;
     stringify?: boolean;
 }
-export declare function create(options?: optionsType): <T extends Object>(key: string, store: T, initialState?: any) => T;
+export declare function create({storage, stringify}?: optionsType): <T extends Object>(key: string, store: T, initialState?: any) => T;
