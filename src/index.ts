@@ -40,7 +40,7 @@ export function create({
                     update(store, persisted)
                 }
                 mergeObservables(store, initialState)
-        }))
+              }))
         
         reaction(
             () => serialize(store),
