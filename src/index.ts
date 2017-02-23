@@ -25,27 +25,28 @@ export function persist(...args: any[]): any {
 
 export interface optionsType {
     storage?: Storage.IStorage | any,
-    stringify?: boolean
+    jsonify: boolean
 }
 
 export function create({
     storage = Storage,
-        stringify = true
-}: optionsType = {}) {
+    jsonify = true
+}: any = {}) {
     return function persistStore<T extends Object>(key: string, store: T, initialState: any = {}): T {
         storage.getItem(key)
-        .then((d: string) => JSON.parse(d))
-        .then(action(`[mobx-persist ${key}] LOAD_DATA`, (persisted: any) => {
-            if (persisted && typeof persisted === 'object') {
-                update(store, persisted)
-            }
-            mergeObservables(store, initialState)
+            .then((d: any) => !jsonify ? d : JSON.parse(d))
+            .then(action(`[mobx-persist ${key}] LOAD_DATA`, (persisted: any) => {
+                if (persisted && typeof persisted === 'object') {
+                    update(store, persisted)
+                }
+                mergeObservables(store, initialState)
         }))
+        
         reaction(
             () => serialize(store),
-                (data: any) => storage.setItem(key,
-                                               !stringify ? data : JSON.stringify(data))
+            (data: any) => storage.setItem(key, !jsonify ? data : JSON.stringify(data))
         )
+
         return store
     }
 }
