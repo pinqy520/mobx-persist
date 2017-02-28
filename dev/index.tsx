@@ -6,11 +6,13 @@ import App from './app'
 import { noDecoratorState, NoDecorator } from './non-decorator'
 import { create } from '../src'
 
-const persistStore = create({})
+const hydrate = create({})
 
 const appState = new AppState
-persistStore('appState', appState, (window as any).__INITIAL_STATE__.app)
-persistStore('noDecoratorState', noDecoratorState)
+hydrate('appState', appState, (window as any).__INITIAL_STATE__.app)
+  .then(() => console.log('appState hydrated'))
+hydrate('noDecoratorState', noDecoratorState)
+  .then(() => console.log('noDecoratorState hydrated'))
 
 render(
   <AppContainer>

@@ -32,22 +32,26 @@ export function create({
     storage = Storage,
     jsonify = true
 }: any = {}) {
-    return function persistStore<T extends Object>(key: string, store: T, initialState: any = {}): T {
-        storage.getItem(key)
+    return function hydrate<T extends Object>(key: string, store: T, initialState: any = {}): Promise<T> {
+        const hydration = storage.getItem(key)
             .then((d: any) => !jsonify ? d : JSON.parse(d))
-            .then(action(`[mobx-persist ${key}] LOAD_DATA`, (persisted: any) => {
-                if (persisted && typeof persisted === 'object') {
-                    update(store, persisted)
+            .then(action(
+                `[mobx-persist ${key}] LOAD_DATA`,
+                (persisted: any) => {
+                    if (persisted && typeof persisted === 'object') {
+                        update(store, persisted)
+                    }
+                    mergeObservables(store, initialState)
+                    return store
                 }
-                mergeObservables(store, initialState)
-              }))
-        
+            ))
+
         reaction(
             () => serialize(store),
             (data: any) => storage.setItem(key, !jsonify ? data : JSON.stringify(data))
         )
 
-        return store
+        return hydration
     }
 }
 

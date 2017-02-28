@@ -26,11 +26,19 @@ class SomeStore {
     @persist('list', SomeItem)   @observable l = []
 }
 
-const persistStore = create({
-    storage: AsyncStorage // default localStorage
+const hydrate = create({
+    storage: localForage,   // or AsyncStorage in react-native.
+                            // default use localStorage
+    jsonify: false  // if you use AsyncStorage, here shoud be true
+                    // default true
 })
 
-export const someStore = persistStore('some', new SomeStore)
+// create the state
+export const someStore = new SomeStore
+
+hydrate('some', someStore)
+    // post hydration
+    .then(() => console.log('some hydrated'))
 
 ```
 
@@ -65,8 +73,9 @@ const schema = {
         }
     }
 }
-const state = persist(schema)(data)
-export const someStore = persistStore('some', state)
+export const someStore = persist(schema)(data)
+hydrate('some', state)
+    .then(() => console.log('some hydrated'))
 ```
 
 with initial state
@@ -75,7 +84,10 @@ with initial state
 const initialState = window.__STATE__.some || {
     obj: { a: 2, b: 1 }
 }
-export const someStore = persistStore('some', new SomeStore, initialState)
+export const someStore = new SomeStore
+
+hydrate('some', someStore, initialState)
+    .then(() => console.log('some hydrated'))
 ```
 
 ## Examples

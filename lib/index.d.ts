@@ -7,4 +7,4 @@ export interface optionsType {
     storage?: Storage.IStorage | any;
     jsonify: boolean;
 }
-export declare function create({storage, jsonify}?: any): <T extends Object>(key: string, store: T, initialState?: any) => T;
+export declare function create({storage, jsonify}?: any): <T extends Object>(key: string, store: T, initialState?: any) => Promise<T>;
