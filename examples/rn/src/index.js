@@ -5,8 +5,9 @@ import { create } from 'mobx-persist'
 
 import { CountStore } from './store'
 
-const persistStore = create({ storage: AsyncStorage })
-const countStore = persistStore('count', new CountStore)
+const hydrate = create({ storage: AsyncStorage })
+const countStore = new CountStore
+hydrate('count', countStore)
 
 @observer
 class Test extends React.Component {
