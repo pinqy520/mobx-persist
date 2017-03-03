@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 const { AppContainer } = require('react-hot-loader')
 import AppState from './app-state'
 import App from './app'
+import AuthStore from './auth-store'
 import { noDecoratorState, NoDecorator } from './non-decorator'
 import { create } from '../src'
 
@@ -12,6 +13,9 @@ const appState = new AppState
 hydrate('appState', appState, (window as any).__INITIAL_STATE__.app)
   .then(() => console.log('appState hydrated'))
 hydrate('noDecoratorState', noDecoratorState)
+  .then(() => console.log('noDecoratorState hydrated'))
+const authState = new AuthStore()
+hydrate('auth', authState)
   .then(() => console.log('noDecoratorState hydrated'))
 
 render(
