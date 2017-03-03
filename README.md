@@ -92,7 +92,7 @@ hydrate('some', someStore, initialState)
 
 ## Examples
 
-- [Web](https://github.com/pinqy520/mobx-persist/tree/master/examples/web)
+- [Web](https://github.com/pinqy520/mobx-persist/tree/master/dev)
 - [React Native](https://github.com/pinqy520/mobx-persist/tree/master/examples/rn)
 
 
