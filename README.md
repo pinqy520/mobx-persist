@@ -10,7 +10,7 @@ $ npm install mobx-persist --save
 
 ``` typescript
 import { observable, asMap } from 'mobx'
-import { create, persist   } from 'mobx-persist'
+import { create, persist } from 'mobx-persist'
 
 class SomeItem {
     @persist @observable  name = 'some'
@@ -27,14 +27,14 @@ class SomeStore {
 }
 
 const hydrate = create({
-    storage: localForage,   // or AsyncStorage in react-native.
-                            // default use localStorage
+    storage: localStorage,   // or AsyncStorage in react-native.
+                            // default: localStorage
     jsonify: false  // if you use AsyncStorage, here shoud be true
-                    // default true
+                    // default: true
 })
 
 // create the state
-export const someStore = new SomeStore
+export const someStore = new SomeStore()
 
 hydrate('some', someStore)
     // post hydration
@@ -84,11 +84,30 @@ with initial state
 const initialState = window.__STATE__.some || {
     obj: { a: 2, b: 1 }
 }
-export const someStore = new SomeStore
+export const someStore = new SomeStore()
 
 hydrate('some', someStore, initialState)
     .then(() => console.log('some hydrated'))
 ```
+
+## API
+
+#### `persist(schema)(object)`
+  - arguments
+    - **schema** *string/object* Describes the type of data you are planning to persist. Not needed for JS primitive types. Options: `'object' | 'list' | 'map'` or a structured schema object.
+    - **observable** *any* The observable that you are persisting.
+  - returns a persistence-enabled version of **observable**
+    
+#### `create(config)`
+  - arguments
+    - **config** *object* Describes the storage container you want your data to reside in.
+      - **storage** *localStorage/AsyncStorage* localStorage for Web, AsyncStorage for React Native
+      - **jsonify** *bool* Enables serialization as JSON
+  - returns
+    - **hydrate** *function* `hydrate(key, store)`
+      - **key** *string* The key of your datastore that you want to hydrate from your persisted record.
+      - **store** *object* The store in which that key resides.
+      - returns *Promise*
 
 ## Examples
 
