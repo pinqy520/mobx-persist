@@ -101,7 +101,7 @@ hydrate('some', someStore, initialState)
 #### `create(config)`
   - arguments
     - **config** *object* Describes the storage container you want your data to reside in.
-      - **storage** *localStorage/AsyncStorage* localStorage for Web, AsyncStorage for React Native
+      - **storage** *[localForage](https://github.com/localForage/localForage)/AsyncStorage* [localForage](https://github.com/localForage/localForage)-style storage API. localStorage for Web (default), AsyncStorage for React Native
       - **jsonify** *bool* Enables serialization as JSON
   - returns
     - **hydrate** *function* `hydrate(key, store)`
