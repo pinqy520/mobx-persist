@@ -24,14 +24,15 @@ export function persist(...args: any[]): any {
 }
 
 export interface optionsType {
-    storage?: Storage.IStorage | any,
+    storage?: any,
     jsonify: boolean
 }
 
 export function create({
-    storage = Storage,
+    storage = Storage as any,
     jsonify = true
 }: any = {}) {
+    if (typeof localStorage !== 'undefined' && localStorage === storage) storage = Storage
     return function hydrate<T extends Object>(key: string, store: T, initialState: any = {}): Promise<T> {
         const hydration = storage.getItem(key)
             .then((d: any) => !jsonify ? d : JSON.parse(d))
