@@ -9,7 +9,7 @@ $ npm install mobx-persist --save
 ## Usage
 
 ``` typescript
-import { observable, asMap } from 'mobx'
+import { observable } from 'mobx'
 import { create, persist } from 'mobx-persist'
 
 class SomeItem {
@@ -19,10 +19,10 @@ class SomeItem {
 
 class SomeStore {
     @persist('object') @observable         obj = { a: 1, b: 2 }
-    @persist('map')    @observable   stringMap = asMap<string>({})
+    @persist('map')    @observable   stringMap = observable.map<string>({})
     @persist('list')   @observable     numList = [1,2,3,4]
     @persist('object', SomeItem) @observable s = new SomeItem
-    @persist('map', SomeItem)    @observable m = asMap<SomeItem>({})
+    @persist('map', SomeItem)    @observable m = observable.map<SomeItem>({})
     @persist('list', SomeItem)   @observable l = []
 }
 

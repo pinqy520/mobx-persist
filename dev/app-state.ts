@@ -1,12 +1,17 @@
-import { observable, useStrict, action, runInAction, computed, extendObservable } from 'mobx'
+import { observable, useStrict, action, runInAction, computed, extendObservable, ObservableMap } from 'mobx'
 import { persist } from '../src'
 // import { serializable } from 'serializr'
 
 // useStrict(true)
 
+export class Item {
+  @persist @observable prop = 1
+}
+
 class AppState {
   @persist @observable timer: any
   @persist('list') @observable list: number[] = [2, 22]
+  @persist('map', Item) @observable map = observable.map<Item>({})
 
   constructor() {
     setInterval(this.inc.bind(this), 2000);
