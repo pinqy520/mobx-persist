@@ -1,13 +1,15 @@
 import * as React from 'react'
-import { View, Text, AsyncStorage, StyleSheet } from 'react-native'
+import { View, Text, AsyncStorage, StyleSheet, Button } from 'react-native'
 import { observer } from 'mobx-react/native'
 import { create } from 'mobx-persist'
 
-import { CountStore } from './store'
+import { CountStore, MapStore } from './store'
 
 const hydrate = create({ storage: AsyncStorage })
 const countStore = new CountStore
+const mapStore = new MapStore
 hydrate('count', countStore)
+hydrate('map', mapStore)
 
 @observer
 class Test extends React.Component {
@@ -21,6 +23,12 @@ class Test extends React.Component {
         return (
             <View style={styles.container}>
                 <Text>Count: {countStore.count}</Text>
+                <Button title="Test Map" onPress={() =>  mapStore.test(`${Date.now()}`)} />
+                {
+                    mapStore.items.entries().map(([key, value]) => (
+                        <Text key={key}>{key}: {value.info}</Text>
+                    ))
+                }
             </View>
         )
     }
