@@ -5,6 +5,9 @@ export declare class Item {
 declare class AppState {
     timer: any;
     list: number[];
+    objectList: {
+        test: number;
+    }[];
     map: ObservableMap<Item>;
     constructor();
     readonly count: number;

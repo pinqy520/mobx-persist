@@ -5,8 +5,13 @@ import {
     custom
 } from 'serializr'
 
+function _walk(v: any) {
+    if (typeof v === 'object') Object.keys(v).map(k => _walk(v[k]))
+    return v
+}
+
 function _default () {
-    return custom((v: any) => v, (v: any) => v)
+    return custom(_walk, (v: any) => v)
 }
 
 function object(s: any) {

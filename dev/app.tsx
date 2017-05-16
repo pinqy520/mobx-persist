@@ -12,7 +12,7 @@ class App extends React.Component<any, any> {
           Seconds passed: {this.props.appState.count}
         </button>
         <button onClick={this.onPut}>put</button>
-        <button onClick={this.onArrayIndex}>index test</button>
+        <button onClick={this.onArrayIndex}>index test {this.props.appState.objectList[0].test}</button>
         {
           this.props.appState.list.map((item: number, idx: number) => <div key={idx}>{item}</div>)
         }
@@ -21,7 +21,7 @@ class App extends React.Component<any, any> {
     );
   }
   onArrayIndex = () => {
-    this.props.appState.list[0]++
+    this.props.appState.objectList[0].test++
   }
   onPut = () => {
     this.props.appState.put()
