@@ -103,6 +103,7 @@ hydrate('some', someStore, initialState)
     - **config** *object* Describes the storage container you want your data to reside in.
       - **storage** *[localForage](https://github.com/localForage/localForage)/AsyncStorage/localStorage* [localForage](https://github.com/localForage/localForage)-style storage API. localStorage for Web (default), AsyncStorage for React Native
       - **jsonify** *bool* Enables serialization as JSON
+      - **debounce** *number* Debounce interval applied to storage calls (in miliseconds, default 0).
   - returns
     - **hydrate** *function* `hydrate(key, store)`
       - **key** *string* The key of your datastore that you want to hydrate from your persisted record.
