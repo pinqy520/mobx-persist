@@ -24,13 +24,15 @@ export function persist(...args: any[]): any {
 }
 
 export interface optionsType {
-    storage?: any,
-    jsonify: boolean
+    storage?: any
+    jsonify?: boolean
+    debounce?: number
 }
 
 export function create({
     storage = Storage as any,
-    jsonify = true
+    jsonify = true,
+    debounce = 0
 }: any = {}) {
     if (typeof localStorage !== 'undefined' && localStorage === storage) storage = Storage
     return function hydrate<T extends Object>(key: string, store: T, initialState: any = {}): Promise<T> {
@@ -49,7 +51,10 @@ export function create({
 
         reaction(
             () => serialize(store),
-            (data: any) => storage.setItem(key, !jsonify ? data : JSON.stringify(data))
+            (data: any) => storage.setItem(key, !jsonify ? data : JSON.stringify(data)),
+            {
+                delay: debounce
+            }
         )
 
         return hydration

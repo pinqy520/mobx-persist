@@ -4,6 +4,7 @@ export declare function persist(target: Object, key: string, baseDescriptor?: Pr
 export declare function persist(schema: Object): <T>(target: T) => T;
 export interface optionsType {
     storage?: any;
-    jsonify: boolean;
+    jsonify?: boolean;
+    debounce?: number;
 }
-export declare function create({storage, jsonify}?: any): <T extends Object>(key: string, store: T, initialState?: any) => Promise<T>;
+export declare function create({storage, jsonify, debounce}?: any): <T extends Object>(key: string, store: T, initialState?: any) => Promise<T>;

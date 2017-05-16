@@ -10,12 +10,12 @@ function _walk(v: any) {
     return v
 }
 
-function _default () {
+function _default() {
     return custom(_walk, (v: any) => v)
 }
 
 function object(s: any) {
-    return s ? _object(s) : _default ()
+    return s ? _object(s) : _default()
 }
 
 function list(s: any) {
