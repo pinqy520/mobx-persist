@@ -12,12 +12,16 @@ class App extends React.Component<any, any> {
           Seconds passed: {this.props.appState.count}
         </button>
         <button onClick={this.onPut}>put</button>
+        <button onClick={this.onArrayIndex}>index test</button>
         {
           this.props.appState.list.map((item: number, idx: number) => <div key={idx}>{item}</div>)
         }
         <DevTools />
       </div>
     );
+  }
+  onArrayIndex = () => {
+    this.props.appState.list[0]++
   }
   onPut = () => {
     this.props.appState.put()
