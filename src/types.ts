@@ -6,7 +6,7 @@ import {
 } from 'serializr'
 
 function _walk(v: any) {
-    if (typeof v === 'object') Object.keys(v).map(k => _walk(v[k]))
+    if (typeof v === 'object' && v) Object.keys(v).map(k => _walk(v[k]))
     return v
 }
 

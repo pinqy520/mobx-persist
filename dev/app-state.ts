@@ -11,7 +11,7 @@ export class Item {
 class AppState {
   @persist @observable timer: any
   @persist('list') @observable list: number[] = [2, 22]
-  @persist('list') @observable objectList = [{test: 1}]
+  @persist('list') @observable objectList = [{test: 1}, null, undefined]
   @persist('map', Item) @observable map = observable.map<Item>({})
 
   constructor() {
