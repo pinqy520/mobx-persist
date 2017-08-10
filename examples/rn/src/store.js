@@ -21,3 +21,10 @@ export class MapStore {
         this.items.set(key, new Item)
     }
 }
+
+export class ListStore {
+    @persist('list') @observable list = []
+    @action test(text = `${Date.now()}`) {
+        this.list.push({ text })
+    }
+}

@@ -6,13 +6,17 @@ import { persist } from '../src'
 
 export class Item {
   @persist @observable prop = 1
+  @persist @observable added = 3
 }
+
 
 class AppState {
   @persist @observable timer: any
   @persist('list') @observable list: number[] = [2, 22]
-  @persist('list') @observable objectList: any[] = [{test: 1}, null, undefined, [1]]
+  @persist('list') @observable objectList: any[] =  [{test: 1}, null, undefined, [1]]
   @persist('map', Item) @observable map = observable.map<Item>({})
+  @persist('object', Item) @observable item = new Item
+  @persist('object') @observable date: Date
 
   constructor() {
     setInterval(this.inc.bind(this), 2000);
