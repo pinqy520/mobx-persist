@@ -2,7 +2,7 @@ import { reaction, action } from 'mobx'
 import {
     serialize, deserialize,
     update,
-    serializable
+    serializable, getDefaultModelSchema
 } from 'serializr'
 import * as Storage from './storage'
 import { mergeObservables } from './merge-x'
@@ -42,7 +42,7 @@ export function create({
                 `[mobx-persist ${key}] LOAD_DATA`,
                 (persisted: any) => {
                     if (persisted && typeof persisted === 'object') {
-                        update(store, persisted)
+                        update(getDefaultModelSchema(store as any), store, persisted)
                     }
                     mergeObservables(store, initialState)
                     return store
