@@ -11,6 +11,9 @@ class App extends React.Component<any, any> {
         <button onClick={this.onReset}>
           Seconds passed: {this.props.appState.count}
         </button>
+        <button onClick={this.onAdd}>Class List Count: {
+          this.props.appState.counts
+          }</button>
         <div>
           {this.props.appState.item.added}
         </div>
@@ -27,6 +30,9 @@ class App extends React.Component<any, any> {
         <DevTools />
       </div>
     );
+  }
+  onAdd = () => {
+    this.props.appState.add()
   }
   onDate = () => {
     this.props.appState.date = new Date
