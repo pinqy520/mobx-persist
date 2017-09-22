@@ -104,6 +104,7 @@ hydrate('some', someStore, initialState)
       - **storage** *[localForage](https://github.com/localForage/localForage)/AsyncStorage/localStorage* [localForage](https://github.com/localForage/localForage)-style storage API. localStorage for Web (default), AsyncStorage for React Native
       - **jsonify** *bool* Enables serialization as JSON
       - **debounce** *number* Debounce interval applied to storage calls (in miliseconds, default 0).
+      - **sync** *bool* Enables syncronization of data over tabs every time the localStorage is updated. This setting is ignored when using React Native.
   - returns
     - **hydrate** *function* `hydrate(key, store)`
       - **key** *string* The key of your datastore that you want to hydrate from your persisted record.

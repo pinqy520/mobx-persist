@@ -27,27 +27,28 @@ export interface optionsType {
     storage?: any
     jsonify?: boolean
     debounce?: number
+    sync?: boolean
 }
 
 export function create({
     storage = Storage as any,
     jsonify = true,
-    debounce = 0
+    debounce = 0,
+    sync = true
 }: any = {}) {
     if (typeof localStorage !== 'undefined' && localStorage === storage) storage = Storage
     return function hydrate<T extends Object>(key: string, store: T, initialState: any = {}): Promise<T> {
+        const updateStore = (persisted: any) => {
+            if (persisted && typeof persisted === 'object') {
+                update(getDefaultModelSchema(store as any), store, persisted)
+            }
+            mergeObservables(store, initialState)
+            return store
+        }
+
         const hydration = storage.getItem(key)
             .then((d: any) => !jsonify ? d : JSON.parse(d))
-            .then(action(
-                `[mobx-persist ${key}] LOAD_DATA`,
-                (persisted: any) => {
-                    if (persisted && typeof persisted === 'object') {
-                        update(getDefaultModelSchema(store as any), store, persisted)
-                    }
-                    mergeObservables(store, initialState)
-                    return store
-                }
-            ))
+            .then(action(`[mobx-persist ${key}] LOAD_DATA`, updateStore))
 
         reaction(
             () => serialize(store),
@@ -57,7 +58,15 @@ export function create({
             }
         )
 
+        if (sync && window)
+        {
+            window.addEventListener("storage", (event) => {
+                if(!event.newValue) return
+                action(`[mobx-persist ${key}] REFRESH_DATA`, updateStore)
+                (!jsonify ? event.newValue : JSON.parse(event.newValue))
+            }, false)
+        }
+
         return hydration
     }
 }
-
