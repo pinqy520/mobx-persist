@@ -44,7 +44,7 @@ export function create({
             }
             mergeObservables(store, initialState)
             return store
-        };
+        }
 
         const hydration = storage.getItem(key)
             .then((d: any) => !jsonify ? d : JSON.parse(d))
