@@ -29,14 +29,19 @@ export interface optionsType {
     debounce?: number
 }
 
+export interface IHydrateResult<T> extends Promise<T> {
+    rehydrate: () => IHydrateResult<T>
+}
+
 export function create({
     storage = Storage as any,
     jsonify = true,
     debounce = 0
 }: any = {}) {
     if (typeof localStorage !== 'undefined' && localStorage === storage) storage = Storage
-    return function hydrate<T extends Object>(key: string, store: T, initialState: any = {}): Promise<T> {
-        const hydration = storage.getItem(key)
+    return function hydrate<T extends Object>(key: string, store: T, initialState: any = {}): IHydrateResult<T> {
+        function hydration() {
+            const promise: IHydrateResult<T> = storage.getItem(key)
             .then((d: any) => !jsonify ? d : JSON.parse(d))
             .then(action(
                 `[mobx-persist ${key}] LOAD_DATA`,
@@ -48,6 +53,11 @@ export function create({
                     return store
                 }
             ))
+            promise.rehydrate = hydration
+            return promise
+        }
+
+        const result = hydration()
 
         reaction(
             () => serialize(store),
@@ -57,7 +67,7 @@ export function create({
             }
         )
 
-        return hydration
+        return result
     }
 }
 
