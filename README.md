@@ -90,6 +90,18 @@ hydrate('some', someStore, initialState)
     .then(() => console.log('some hydrated'))
 ```
 
+re-hydration
+
+``` typescript
+const result = hydrate('some', someStore, initialState)
+const rehydrate = result.rehydrate
+result.then(() => console.log('some hydrated'))
+
+setTimeout(() => {
+    rehydrate().then(() => console.log('rehydrated'))
+}, 3000)
+```
+
 ## API
 
 #### `persist(schema)(object)`
@@ -108,7 +120,13 @@ hydrate('some', someStore, initialState)
     - **hydrate** *function* `hydrate(key, store)`
       - **key** *string* The key of your datastore that you want to hydrate from your persisted record.
       - **store** *object* The store in which that key resides.
-      - returns *Promise*
+      - returns *IHydrateResult*
+
+#### interface `IHydrateResult`
+  extends `Promise`
+  - methods
+    - **rehydrate** *function*
+      - returns *IHydrateResult*
 
 ## Examples
 
