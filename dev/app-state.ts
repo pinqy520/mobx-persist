@@ -12,8 +12,13 @@ export class Item {
   }
 }
 
+export class BaseState {
 
-class AppState {
+}
+
+
+class AppState extends BaseState 
+{
   @persist @observable timer: any = 0
   @persist('list') @observable list: number[] = [2, 22]
   @persist('list', Item) @observable classList: Item[] = []
@@ -23,6 +28,7 @@ class AppState {
   @persist('object') @observable date: Date
 
   constructor() {
+    super()
     setInterval(this.inc.bind(this), 2000);
   }
   @action('ADD')

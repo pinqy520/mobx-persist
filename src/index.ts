@@ -40,6 +40,7 @@ export function create({
 }: any = {}) {
     if (typeof localStorage !== 'undefined' && localStorage === storage) storage = Storage
     return function hydrate<T extends Object>(key: string, store: T, initialState: any = {}): IHydrateResult<T> {
+        const schema = getDefaultModelSchema(store as any)
         function hydration() {
             const promise: IHydrateResult<T> = storage.getItem(key)
             .then((d: any) => !jsonify ? d : JSON.parse(d))
@@ -47,7 +48,7 @@ export function create({
                 `[mobx-persist ${key}] LOAD_DATA`,
                 (persisted: any) => {
                     if (persisted && typeof persisted === 'object') {
-                        update(getDefaultModelSchema(store as any), store, persisted)
+                        update(schema, store, persisted)
                     }
                     mergeObservables(store, initialState)
                     return store
@@ -56,17 +57,14 @@ export function create({
             promise.rehydrate = hydration
             return promise
         }
-
         const result = hydration()
-
         reaction(
-            () => serialize(store),
+            () => serialize(schema, store),
             (data: any) => storage.setItem(key, !jsonify ? data : JSON.stringify(data)),
             {
                 delay: debounce
             }
         )
-
         return result
     }
 }
