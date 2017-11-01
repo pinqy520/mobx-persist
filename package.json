@@ -1,6 +1,6 @@
 {
   "name": "mobx-persist",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "create and persist mobx stores",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
