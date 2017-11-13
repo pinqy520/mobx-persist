@@ -109,7 +109,7 @@ setTimeout(() => {
     - **schema** *string/object* Describes the type of data you are planning to persist. Not needed for JS primitive types. Options: `'object' | 'list' | 'map'` or a structured schema object.
     - **observable** *any* The observable that you are persisting.
   - returns a persistence-enabled version of **observable**
-    
+
 #### `create(config)`
   - arguments
     - **config** *object* Describes the storage container you want your data to reside in.
@@ -117,9 +117,11 @@ setTimeout(() => {
       - **jsonify** *bool* Enables serialization as JSON
       - **debounce** *number* Debounce interval applied to storage calls (in miliseconds, default 0).
   - returns
-    - **hydrate** *function* `hydrate(key, store)`
+    - **hydrate** *function* `hydrate(key, store, initialState?, customArgs?)`
       - **key** *string* The key of your datastore that you want to hydrate from your persisted record.
       - **store** *object* The store in which that key resides.
+      - **initialState** *object* Optional initial state the store is seeded with.
+      - **customArgs** *object* Optional custom arguments that are available during the deserialization process which can be used to pass in e.g. stores to model constructors during deserialization. See https://github.com/mobxjs/serializr#6-use-custom-arguments-to-inject-stores-to-models
       - returns *IHydrateResult*
 
 #### interface `IHydrateResult`

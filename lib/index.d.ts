@@ -10,4 +10,4 @@ export interface optionsType {
 export interface IHydrateResult<T> extends Promise<T> {
     rehydrate: () => IHydrateResult<T>;
 }
-export declare function create({storage, jsonify, debounce}?: any): <T extends Object>(key: string, store: T, initialState?: any) => IHydrateResult<T>;
+export declare function create({storage, jsonify, debounce}?: any): <T extends Object>(key: string, store: T, initialState?: any, customArgs?: any) => IHydrateResult<T>;
