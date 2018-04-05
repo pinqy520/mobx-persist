@@ -36,9 +36,9 @@ const hydrate = create({
 // create the state
 export const someStore = new SomeStore()
 
-hydrate('some', someStore)
-    // post hydration
-    .then(() => console.log('some hydrated'))
+hydrate('s', someStore).then(() => console.log('observable s hydrated'))
+hydrate('m', someStore).then(() => console.log('observable m hydrated'))
+hydrate('numList', someStore).then(() => console.log('observable numList hydrated'))
 
 ```
 
@@ -74,8 +74,9 @@ const schema = {
     }
 }
 export const someStore = persist(schema)(data)
-hydrate('some', state)
-    .then(() => console.log('some hydrated'))
+hydrate('s', someStore).then(() => console.log('observable s hydrated'))
+hydrate('m', someStore).then(() => console.log('observable m hydrated'))
+hydrate('numList', someStore).then(() => console.log('observable numList hydrated'))
 ```
 
 with initial state
