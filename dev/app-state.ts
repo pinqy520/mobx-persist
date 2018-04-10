@@ -1,4 +1,4 @@
-import { observable, useStrict, action, runInAction, computed, extendObservable, ObservableMap, IObservableArray } from 'mobx'
+import { observable, configure, action, runInAction, computed, extendObservable, ObservableMap, IObservableArray } from 'mobx'
 import { persist } from '../src'
 import { serializable, list, object } from 'serializr'
 
