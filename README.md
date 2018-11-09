@@ -125,6 +125,8 @@ setTimeout(() => {
   - methods
     - **rehydrate** *function*
       - returns *IHydrateResult*
+    - **dispose** *function*
+      - disposes reaction which is useful if you want to call `create` again with different config
 
 ## Examples
 

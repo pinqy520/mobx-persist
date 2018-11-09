@@ -30,7 +30,8 @@ export interface optionsType {
 }
 
 export interface IHydrateResult<T> extends Promise<T> {
-    rehydrate: () => IHydrateResult<T>
+    rehydrate: () => IHydrateResult<T>,
+    dispose: () => void
 }
 
 export function create({
@@ -58,7 +59,7 @@ export function create({
             return promise
         }
         const result = hydration()
-        reaction(
+        result.dispose = reaction(
             () => serialize(schema, store),
             (data: any) => storage.setItem(key, !jsonify ? data : JSON.stringify(data)),
             {
