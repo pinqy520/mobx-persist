@@ -8,9 +8,14 @@ import { create } from '../src'
 
 const hydrate = create({})
 
-const appState = new AppState
+const appState = new AppState();
+const disposeState = new AppState();
+
 hydrate('appState', appState, (window as any).__INITIAL_STATE__.app)
   .then(() => console.log('appState hydrated'))
+
+const disposable = hydrate('disposeState', disposeState);
+
 hydrate('noDecoratorState', noDecoratorState)
   .then(() => console.log('noDecoratorState hydrated'))
 
@@ -18,6 +23,8 @@ render(
   <AppContainer>
     <div>
       <App appState={appState} />
+      <hr />
+      <App appState={disposeState} onDispose={disposable.dispose} />
       <hr />
       <NoDecorator />
     </div>
@@ -35,6 +42,8 @@ if (m.hot) {
       <AppContainer>
         <div>
           <App appState={appState} />
+          <hr />
+          <App appState={disposeState} onDispose={disposable.dispose} />
           <hr />
           <NoDecorator />
         </div>
