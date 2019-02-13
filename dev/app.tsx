@@ -8,7 +8,7 @@ class App extends React.Component<any, any> {
     return (
       <div>
         <div>{this.props.appState.count}</div>
-        <button onClick={this.onReset}>
+        <button onClick={this.props.onDispose || this.onReset}>
           Seconds passed: {this.props.appState.count}
         </button>
         <button onClick={this.onAdd}>Class List Count: {

@@ -23,7 +23,7 @@ class AppState extends BaseState
   @persist('list') @observable list: number[] = [2, 22]
   @persist('list', Item) @observable classList: Item[] = []
   @persist('list') @observable objectList: any[] = [{ test: 1 }, null, undefined, [1]]
-  @persist('map', Item) @observable map = observable.map<Item>({})
+  @persist('map', Item) @observable map = observable.map<Item, any>({})
   @persist('object', Item) @observable item = new Item
   @persist('object') @observable date: Date
 
