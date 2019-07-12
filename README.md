@@ -27,7 +27,7 @@ class SomeStore {
 }
 
 const hydrate = create({
-    storage: localForage,   // or AsyncStorage in react-native.
+    storage: localStorage,   // or AsyncStorage in react-native.
                             // default: localStorage
     jsonify: false  // if you use AsyncStorage, here shoud be true
                     // default: true
