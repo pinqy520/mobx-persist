@@ -98,6 +98,22 @@ setTimeout(() => {
 }, 3000)
 ```
 
+### Node and Server-Side Rendering (SSR) Usage
+
+Node environments are supported so long as you configure a Storage Engine that supports Node, such as [`redux-persist-node-storage`](https://github.com/pellejacobs/redux-persist-node-storage), [`redux-persist-cookie-storage`](https://github.com/abersager/redux-persist-cookie-storage), etc.
+This allows you to hydrate your store server-side.
+
+For SSR though, you may not want to hydrate your store server-side, so in that case you can call `create` and `hydrate` conditionally:
+
+ ```javascript
+if (typeof window !== 'undefined') { // window is undefined in Node
+    const hydrate = create(...)
+    hydrate(...).then(...)
+}
+```
+
+With this conditional check, your store will only be hydrated client-side.
+
 ## API
 
 #### `persist(schema)(object)`
