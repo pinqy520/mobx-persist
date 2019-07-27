@@ -109,7 +109,12 @@ setTimeout(() => {
 #### `create(config)`
   - arguments
     - **config** *object* Describes the storage container you want your data to reside in.
-      - **storage** *[localForage](https://github.com/localForage/localForage)/AsyncStorage/localStorage* [localForage](https://github.com/localForage/localForage)-style storage API. localStorage for Web (default), AsyncStorage for React Native
+      - **storage** *[localForage](https://github.com/localForage/localForage) / AsyncStorage / localStorage*
+        Any Storage Engine that has a Promise-style API similar to [`localForage`](https://github.com/localForage/localForage).
+        The default is `localStorage`, which has a built-in adaptor to make it support Promises.
+        For React Native, one may configure `AsyncStorage` instead.
+        <br>
+        Any of [`redux-persist`'s Storage Engines](https://github.com/rt2zz/redux-persist#storage-engines) should also be compatible with `mobx-persist`.
       - **jsonify** *bool* Enables serialization as JSON
       - **debounce** *number* Debounce interval applied to storage calls (in miliseconds, default 0).
   - returns
