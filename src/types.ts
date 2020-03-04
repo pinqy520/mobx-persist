@@ -2,6 +2,7 @@ import {
     list as _list,
     map as _map,
     object as _object,
+    date as _date,
     custom
 } from 'serializr'
 
@@ -26,5 +27,9 @@ function map(s: any) {
     return _map(object(s))
 }
 
-export type Types = 'object' | 'list' | 'map'
-export const types: { [key: string]: ((s?: any) => any) } = { object, list, map }
+function date(s: any) {
+    return _date(object(s))
+}
+
+export type Types = 'object' | 'list' | 'map' | 'date'
+export const types: { [key: string]: ((s?: any) => any) } = { object, list, map, date }
